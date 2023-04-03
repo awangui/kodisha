@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "AddListings";
+}
+@model kodisha.Models.listing
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+
+
+    @using (Html.BeginForm("AddListings", "Listings", FormMethod.Post))
+    {
+        <h2>Add new listing</h2>
+        <div id="regForm">
+
+            <!-- One "tab" for each step in the form: -->
+
+            <div class="tab">
+                <div class="row">
+                    <p>Please be as specific as possible</p>
+                    <div class="col-md-6 textbox">
+                        <label for="propertyName" class="form-label">Property Name:</label>
+                        @Html.TextBoxFor(m => m.PropertyName, new { @class = "form-control", placeholder = "e.g. Giraffe Homes" })
+                        @Html.ValidationMessageFor(m => m.PropertyName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="city" class="form-label">County:</label>
+                        @Html.TextBoxFor(m => m.city, new { @class = "form-control", placeholder = "e.g. Kajiado" })
+                        @Html.ValidationMessageFor(m => m.city, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        <label for="area" class="form-label">Town/Area:</label>
+                        @Html.TextBoxFor(m => m.area, new { @class = "form-control", placeholder = "e.g. Rongai" })
+                        @Html.ValidationMessageFor(m => m.area, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div style="overflow:auto;">
+                    <div style="float:right;">
+                        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                    </div>
+                </div>
+                <!-- Circles which indicates the steps of the form: -->
+                <div style="text-align:center;margin-top:40px;">
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                    <span class="step"></span>
+                </div>
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+        <input type="button" value="View Listing" id="viewListingBtn" class="btn btn-primary" />
+
+    }
+    }
+
+    <script>
+    $(document).ready(function () {
+        $("#viewListingBtn").click(function () {
+            var id = @Model.listing_ID;
+            window.location.href = "/Listings/DisplayListings?id=" + id;
+        });
+    });
+    </script>
+
+
+    <script src="~/js/addlisting.js"></script>
+</body>
+</html>
